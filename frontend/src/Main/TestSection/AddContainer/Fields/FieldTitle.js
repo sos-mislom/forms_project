@@ -1,14 +1,31 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 
-const FieldTitle = ({id, onUpdateField}) => {
+const FieldTitle = ({id, onUpdate, fieldDescription}) => {
     const [placeholderTitle, setPlaceholderTitle] = useState('Название');
     const [fieldTitle, setFieldTitle] = useState('');
     const [placeholderDescription, setPlaceholderDescription] = useState('Описание');
-    const [fieldDescription, setFieldDescription] = useState('');
+    const [descriptionField, setDescriptionField] = useState('');
+    const textareaRef = useRef(null);
 
     useEffect(() => { 
-        onUpdateField(id, { type: 'title', fieldTitle, fieldDescription}); 
-    }, [fieldTitle, fieldDescription]);
+        onUpdate(id, { type: 'title', fieldTitle, descriptionField}); 
+    }, [fieldTitle, descriptionField]);
+
+    useEffect(() => {
+        adjustHeight(); 
+    }, []);
+
+    const adjustHeight = () => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto'; 
+            textareaRef.current.style.height =  `${textareaRef.current.scrollHeight}px`
+        }
+    };
+
+    const handleChange = (e) => {
+        setDescriptionField(e.target.value);
+        adjustHeight(); 
+    };
 
     return (
         <div className="field-title">
@@ -23,14 +40,14 @@ const FieldTitle = ({id, onUpdateField}) => {
             />
             <hr className="divider" />
             <textarea 
+                ref={textareaRef}
                 className="textarea-field" 
                 placeholder= {placeholderDescription }
                 onFocus={() => setPlaceholderDescription('')} 
                 onBlur={() => setPlaceholderDescription('Описание')}
                 value={fieldDescription} 
-                onChange={(e) => setFieldDescription(e.target.value)}
-                rows={1}
-                style={{ overflow: 'hidden' }}
+                onChange={(e) => handleChange(e)}
+                style={{ overflow: 'hidden', recize:'none'   }}
             />
         </div>
     );

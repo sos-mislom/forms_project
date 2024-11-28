@@ -1,25 +1,52 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 
-const FieldText = ({id, onUpdateField}) => {
+const FieldText = ({id, onUpdate, onDelete, fieldText}) => {
     const [placeholderText, setPlaceholderText] = useState('Текст');
-    const [fieldText, setFieldText] = useState('');
+    const [textField, setTextField] = useState('');
+    const textareaRef = useRef(null);
 
     useEffect(() => { 
-        onUpdateField(id, { type: 'text', fieldText }); 
-    }, [fieldText]);
+        onUpdate(id, { type: 'text', textField }); 
+    }, [textField]);
+
+  useEffect(() => {
+        adjustHeight(); 
+    }, []);
+
+    const adjustHeight = () => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto'; 
+            textareaRef.current.style.height =  `${textareaRef.current.scrollHeight}px`
+        }
+    };
+
+    const handleChange = (e) => {
+        setTextField(e.target.value);
+        adjustHeight(); 
+    };
 
     return (
         <div className="field-text">
-            <textarea 
-                placeholder= {placeholderText }
-                onFocus={() => setPlaceholderText('')} 
-                onBlur={() => setPlaceholderText('Текст')}
-                value={fieldText} 
-                onChange={(e) => setFieldText(e.target.value)}
-                rows={1}
-                style={{ overflow: 'hidden' }}
-            />
-            <hr />
+            <div className="field-text-container">
+                <textarea 
+                    ref={textareaRef}
+                    placeholder= {placeholderText }
+                    onFocus={() => setPlaceholderText('')} 
+                    onBlur={() => setPlaceholderText('Текст')}
+                    value={fieldText} 
+                    onChange={(e) => handleChange(e)}
+                    style={{ overflow: 'hidden', recize:'none', width: '581px' }}
+                />
+                <hr />
+            </div>
+            <button className='delete-question' onClick={() => onDelete(id)}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.05063 8.73418C4.20573 7.60763 5.00954 6 6.41772 6H17.5823C18.9905 6 19.7943 7.60763 18.9494 8.73418V8.73418C18.3331 9.55584 18 10.5552 18 11.5823V18C18 20.2091 16.2091 22 14 22H10C7.79086 22 6 20.2091 6 18V11.5823C6 10.5552 5.66688 9.55584 5.05063 8.73418V8.73418Z" stroke="#001F28" stroke-opacity="0.9" stroke-width="1.5"/>
+                    <path d="M14 17L14 11" stroke="#001F28" stroke-opacity="0.9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10 17L10 11" stroke="#001F28" stroke-opacity="0.9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 6L15.4558 4.36754C15.1836 3.55086 14.4193 3 13.5585 3H10.4415C9.58066 3 8.81638 3.55086 8.54415 4.36754L8 6" stroke="#001F28" stroke-opacity="0.9" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </button>
         </div>
     );
 };

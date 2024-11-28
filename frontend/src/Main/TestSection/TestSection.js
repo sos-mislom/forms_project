@@ -5,40 +5,25 @@ import ModalPublic from "./ModalPublic/ModalPublic";
 import axios from "axios";
 
 const TestSection = () => {
-    const [questions, setQuestions] = useState([]);
-    const [fields, setFields] = useState([]);
+    const [questionsAndFields, setQuestionsAndFields] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
 
-    const addQuestion = (element) =>{
-        setQuestions([...questions, element]);
+    const addQuestionOrField = (element) =>{
+        const newQuestionOrField = {...element, id: questionsAndFields.length + 1};
+        setQuestionsAndFields([...questionsAndFields, newQuestionOrField]);
     };
-
-    const addField = (element) => {
-        setFields([...fields, element]);
+    const onDeleteQuestionOrField = (id) => {
+        setQuestionsAndFields(questionsAndFields.filter((questionsAndFields) => questionsAndFields.id !== id));
     };
-
-    const onDeleteQuestion = (id) => {
-        setQuestions(questions.filter((question) => question.id !== id));
-    };
-    const onDeleteField = (id) => {
-        setFields(fields.filter((field) => field.id !== id));
-    };
-
-    const onUpdateQuestion = (id, updatedQuestion) => {
-        setQuestions(questions.map(
-            q => q.id === id ? {...updatedQuestion, id} : q
-        ));
-    };
-
-    const onUpdateField = (id, updatedField) => {
-        setFields(fields.map(
-            f => f.id === id ? {...updatedField, id} : f
+    const onUpdateQuestionOrField = (id, updatedQuestionOrField) => {
+        setQuestionsAndFields(questionsAndFields.map(
+            q => q.id === id ? {...updatedQuestionOrField, id} : q
         ));
     };
     
     const saveForm = async () => {
         try{
-            console.log('форма сохранена успешно', questions, fields)
+            console.log('форма сохранена успешно', questionsAndFields)
             setModalOpen(true);
         } catch(error){
             console.error('Ошибка при сохранении формы', error);
@@ -47,25 +32,20 @@ const TestSection = () => {
 
     const handleCloseModal = () => {
         setModalOpen(false);
-        setQuestions([]);
-        setFields([]);
+        setQuestionsAndFields([]);
     };
 
     return (
         <section className="test">
             <div className="test-block">
                 <AddContainer 
-                    fields={fields} 
-                    questions={ questions } 
-                    onAddQuestion={addQuestion} 
-                    onDeleteQuestion={onDeleteQuestion} 
-                    onUpdateQuestion={onUpdateQuestion} 
-                    onUpdateField={onUpdateField} 
-                    onDeleteField={onDeleteField}
+                    questionsAndFields={ questionsAndFields } 
+                    onAddQuestionOrField={addQuestionOrField} 
+                    onDeleteQuestionOrField={onDeleteQuestionOrField} 
+                    onUpdateQuestionOrField={onUpdateQuestionOrField} 
                 />
                 <LineAndAdd 
-                    onAddField={addField} 
-                    onAddQuestion={addQuestion}
+                    onAddQuestionOrField={addQuestionOrField}
                 />
             </div>
             <button className="publiced" type="button" onClick={saveForm}>Опубликовать</button>

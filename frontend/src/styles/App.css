@@ -65,7 +65,6 @@ h1{
 .form-rectangle{
   width: 300px;
   height: 200px;
-  background-color: rgba(217, 217, 217, 1);
 }
 .form-text{
   text-align: center;
@@ -116,7 +115,7 @@ h1{
 .add-container{
   display: flex;
   flex-direction: column;
-  width: 755px;
+  width: 720px;
 }
 .fields-container{
   margin-bottom: 0px;
@@ -295,13 +294,16 @@ h1{
 } 
 
 .question-title{
-  margin: 14px auto 3px 41px;
+  margin: 14px auto 0px 41px;
   padding: 0px;
   font-weight: 400;
   font-size: 20px;
   border: none;
   color: rgba(0, 31, 40, 0.9);
   background-color: transparent;
+  overflow: hidden;
+  resize: none;
+  width: 576px;
 }
 .question-title::placeholder{
   color: rgba(0, 31, 40, 0.9);
@@ -393,7 +395,6 @@ h1{
 .question{
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
 .delete-question{
@@ -444,7 +445,7 @@ h1{
 .field-title { 
   border: none;
   margin-bottom: 25px;
-  padding: 0px;
+  padding-bottom: 21px;
   width: 755px;
   background-color: rgba(143, 170, 194, 0.1);
 } 
@@ -513,8 +514,12 @@ h1{
   max-width: 590px;
   width: 100%;
   min-height: 40px;
-  max-height: none;
+  max-height: 500px;
   resize: none; 
+}
+.field-text-container{
+  height: auto;
+  max-height: 500px;
 }
 .field-text textarea::placeholder{
   color: rgba(0, 31, 40, 0.6);
@@ -581,10 +586,12 @@ h1{
   font-weight: 500;
 }
 .uploaded{
-  display: flex;
+  position: relative;
+  display: inline-block;
 }
 .uploaded-picture{
-  max-width: 300px;
+  display: block;
+  max-width: 755px;
   height: auto;
   margin-bottom: 25px;
 }
@@ -594,13 +601,12 @@ h1{
   height: auto;
 }
 .delete-uploaded{
+  position: absolute;
   border: none;
   background-color: transparent;
-  align-self: flex-end;
-  margin-bottom: 25px;
+  bottom: 25px;
+  right: -5px;
   cursor: pointer;
-  padding: 0px;
-  margin-left: 0px;
 }
 
 .modal-overlay-public {
@@ -667,4 +673,20 @@ h1{
   font-weight: 400;
   color: rgba(0, 31, 40, 0.6);
   margin-bottom: 39px;
+}
+
+.field-text{
+  display: flex;
+  flex-direction: column;
+}
+.field-text-container hr{
+  width: 100%;
+}
+.field-text .delete-question{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }

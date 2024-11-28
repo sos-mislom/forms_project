@@ -1,22 +1,38 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef } from 'react';
 
-const QuestionSingle = ({ id, onDelete, onUpdateQuestion }) => {
-    const [options, setOptions] = useState(['Вариант', 'Вариант']);
+const QuestionSingle = ({ id, onDelete, onUpdate, questionText, initialOptions }) => {
+    const [options, setOptions] = useState(initialOptions || ['Вариант', 'Вариант']);
     const [placeholder, setPlaceholder] = useState('Вопрос');
-    const [questionText, setQuestionText] = useState('')
+    const [textQuestion, setTextQuestion] = useState(questionText || '');
+    const textareaRef = useRef(null);
 
     useEffect(() => { 
-        onUpdateQuestion(id, {type: 'single', questionText, options}); 
-    }, [questionText, options]);
+        onUpdate(id, {type: 'single', textQuestion, options}); 
+    }, [textQuestion, options]);
+
+    useEffect(() => {
+        adjustHeight(); 
+    }, []);
+
+    const adjustHeight = () => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto'; 
+            textareaRef.current.style.height =  `${textareaRef.current.scrollHeight}px`
+        }
+    };
+
+    const handleChange = (e) => {
+        setTextQuestion(e.target.value);
+        adjustHeight(); 
+    };
 
     const addOption = () => {
-        setOptions([...options, `Вариант`]);
+        setOptions([...options, 'Вариант']);
     };
 
     const removeOption = (index) => {
         const newOptions = options.filter((_, i) => i !== index)
-        setOptions(newOptions);
-        console.log(newOptions);    
+        setOptions(newOptions);  
     };
     const handleOptionChange = (index, value) => {
         const newOptions = [...options];
@@ -38,14 +54,16 @@ const QuestionSingle = ({ id, onDelete, onUpdateQuestion }) => {
     return (
         <div className="question question1">
             <div>
-                <input 
+                <textarea
+                    ref={textareaRef}
                     type="text" 
                     className='question-title' 
                     placeholder={placeholder} 
                     onFocus={() => setPlaceholder('')} 
                     onBlur={() => setPlaceholder('Вопрос')}
-                    value={questionText}    
-                    onChange={(e) => setQuestionText(e.target.value)}            
+                    value={textQuestion}    
+                    rows={1}
+                    onChange={(e) => handleChange(e)}          
                 />
                 <hr />
                 {options.map((option, index) => (

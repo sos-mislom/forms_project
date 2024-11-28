@@ -1,24 +1,42 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef } from 'react';
 
-const QuestionLong = ({id, onDelete, onUpdateQuestion}) => {
+const QuestionLong = ({id, onDelete, onUpdate, questionText}) => {
     const [placeholder, setPlaceholder] = useState('Вопрос');
-    const [questionText, setQuestionText] = useState('');
+    const [textQuestion, setTextQuestion] = useState(questionText || '');
+    const textareaRef = useRef(null);
 
     useEffect(() => {
-        onUpdateQuestion( id, {type: 'long', questionText }         
-    )}, [questionText]);
+        onUpdate( id, {type: 'long', textQuestion }         
+    )}, [textQuestion]);
 
+    useEffect(() => {
+        adjustHeight(); 
+    }, []);
+
+    const adjustHeight = () => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto'; 
+            textareaRef.current.style.height =  `${textareaRef.current.scrollHeight}px`
+        }
+    };
+
+    const handleChange = (e) => {
+        setTextQuestion(e.target.value);
+        adjustHeight(); 
+    };
     return (
         <div className="question question5">
             <div>
-                <input
+                <textarea
+                    ref={textareaRef}
                     type="text" 
                     className='question-title' 
                     placeholder={placeholder} 
                     onFocus={() => setPlaceholder('')} 
                     onBlur={() => setPlaceholder('Вопрос')}
-                    value = {questionText}
-                    onChange={(e) => setQuestionText(e.target.value)}
+                    value = {textQuestion}
+                    rows={1}
+                    onChange={(e) => handleChange(e)}
                 />
                 <hr />
                 <input 

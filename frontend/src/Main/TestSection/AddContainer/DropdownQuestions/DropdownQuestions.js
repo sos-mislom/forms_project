@@ -2,14 +2,12 @@ import React, {useState} from "react";
 
 const DropdownQuestions = ({onAddQuestion}) => {
     const [questions, setQuestions] = useState([]);
-    const [selectedType, setSelectedType] = useState('');
     const [isOpen, setIsOpen] = useState(false);
 
     const addQuestion = (type) => {
         const newQuestion = { type, id: questions.length + 1 };
         setQuestions([...questions, newQuestion]);
         onAddQuestion(newQuestion);
-        setSelectedType('');
         setIsOpen(false);
     };
     const handleToggle = () => {

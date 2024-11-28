@@ -1,27 +1,45 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef } from 'react';
 
-const QuestionScale = ({id, onDelete, onUpdateQuestion}) => {
+const QuestionScale = ({id, onDelete, onUpdate, questionText}) => {
     const [placeholder, setPlaceholder] = useState('Вопрос');
-    const [questionText, setQuestionText] = useState('');
+    const [textQuestion, setTextQuestion] = useState('');
     const [ratingFrom, setRatingFrom] = useState(0);
     const [ratingTo, setRatingTo] = useState(10);
+    const textareaRef = useRef(null);
     
     useEffect(() => { 
-        onUpdateQuestion(id, { type: 'scale', questionText, ratingFrom, ratingTo }); 
-    }, [questionText, ratingFrom, ratingTo]);
+        onUpdate(id, { type: 'scale', textQuestion, ratingFrom, ratingTo }); 
+    }, [textQuestion, ratingFrom, ratingTo]);
 
+    useEffect(() => {
+        adjustHeight(); 
+    }, []);
+
+    const adjustHeight = () => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto'; 
+            textareaRef.current.style.height =  `${textareaRef.current.scrollHeight}px`
+        }
+    };
+
+    const handleChange = (e) => {
+        setTextQuestion(e.target.value);
+        adjustHeight(); 
+    };
 
     return (
         <div className="question question6">
             <div>
-                <input
+                <textarea
+                    ref={textareaRef}
                     type="text" 
                     className='question-title' 
                     placeholder={placeholder} 
                     onFocus={() => setPlaceholder('')} 
                     onBlur={() => setPlaceholder('Вопрос')}
                     value={questionText} 
-                    onChange={(e) => setQuestionText(e.target.value)}
+                    rows={1}
+                    onChange={(e) => handleChange(e)}
                 />
                 <hr />
                 <div className='scale'>

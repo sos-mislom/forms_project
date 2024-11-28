@@ -1,11 +1,11 @@
 import React from "react";
 import AddFieldAndQuestion from "./AddFieldAndQuestion/AddFieldAndQuestion";
 
-const LineAndAdd = ({ onAddField, onAddQuestion}) =>{
+const LineAndAdd = ({ onAddQuestionOrField}) =>{
     return (
         <div className="line-and-add">
             <div className="line"></div>
-            <AddFieldAndQuestion onAddField={onAddField} onAddQuestion={onAddQuestion}/>
+            <AddFieldAndQuestion onAddQuestionOrField={onAddQuestionOrField}/>
         </div>
     );
 };
