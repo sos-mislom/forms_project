@@ -2,11 +2,11 @@ import React, {useState} from "react";
 import LineAndAdd from "./LineAndAdd/LineAndAdd";
 import AddContainer from "./AddContainer/AddContainer";
 import ModalPublic from "./ModalPublic/ModalPublic";
-import axios from "axios";
 
 const TestSection = () => {
     const [questionsAndFields, setQuestionsAndFields] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [formLink, setFormLink] = useState('');
 
     const addQuestionOrField = (element) =>{
         const newQuestionOrField = {...element, id: questionsAndFields.length + 1};
@@ -23,7 +23,16 @@ const TestSection = () => {
     
     const saveForm = async () => {
         try{
-            console.log('форма сохранена успешно', questionsAndFields)
+            const response = await fetch('http://92.118.115.96:8000/forms/', { 
+                method: 'POST', 
+                headers: { 
+                    'Content-Type': 'application/json', 
+                }, 
+                body: JSON.stringify({ questionsAndFields }), 
+            });
+
+            const result = await response.json(); 
+            setFormLink(result.formLink);
             setModalOpen(true);
         } catch(error){
             console.error('Ошибка при сохранении формы', error);
@@ -33,6 +42,7 @@ const TestSection = () => {
     const handleCloseModal = () => {
         setModalOpen(false);
         setQuestionsAndFields([]);
+        setFormLink("");
     };
 
     return (

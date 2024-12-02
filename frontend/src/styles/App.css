@@ -26,21 +26,30 @@ header a{
 .navigation-menu{
   display: flex;
   justify-content: space-between;
-  width: 427px;
+  width: 719px;
   padding: 0px;
-  margin: 51px 100px 52px auto;
+  margin: 44px 60px 46px auto;
 }
 .navigation-main{
   font-size: 36px;
   font-weight: 400;
   color:rgba(0, 31, 40, 0.9);
-  margin: 0px auto 0px 0px;
+  margin: 8px auto 7px 0px;
 }
 .navigation-myForms{
   font-size: 36px;
   font-weight: 400;
   color:rgba(0, 31, 40, 0.9);
-  margin: 0px 0px 0px auto;
+  margin: 8px 0px 7px auto;
+}
+.navigation-login{
+  background-color: rgba(30, 85, 104, 1);
+  color: rgba(245, 245, 245, 1);
+  padding: 7.5px 39px;
+  font-size: 36px;
+  font-weight: 400;
+  border-radius: 8px;
+  margin-left: 65px; 
 }
 h1{
   font-size: 40px;
@@ -517,17 +526,21 @@ h1{
   max-height: 500px;
   resize: none; 
 }
+
 .field-text-container{
   height: auto;
   max-height: 500px;
 }
+
 .field-text textarea::placeholder{
   color: rgba(0, 31, 40, 0.6);
   font-size: 20px;
 }
+
 .field-text textarea:focus{
   outline: none;
 }
+
 .field-text hr{
   border: none; 
   border-top: 1px solid rgba(0, 31, 40, 0.6); 
@@ -585,10 +598,12 @@ h1{
   font-size: 20px;
   font-weight: 500;
 }
+
 .uploaded{
   position: relative;
   display: inline-block;
 }
+
 .uploaded-picture{
   display: block;
   max-width: 755px;
@@ -600,6 +615,7 @@ h1{
   max-width: 300px;
   height: auto;
 }
+
 .delete-uploaded{
   position: absolute;
   border: none;
@@ -627,6 +643,7 @@ h1{
   display: flex;
   flex-direction: column;
 }
+
 .modal-public h2{
   align-self: center;
   color: rgba(0, 31, 40, 0.9);
@@ -665,6 +682,7 @@ h1{
   margin-top: 9px;
   cursor: pointer;
 }
+
 .close-form{
   border: none;
   cursor: pointer;
@@ -679,9 +697,11 @@ h1{
   display: flex;
   flex-direction: column;
 }
+
 .field-text-container hr{
   width: 100%;
 }
+
 .field-text .delete-question{
   border: none;
   background-color: transparent;
@@ -689,4 +709,188 @@ h1{
   align-self: flex-end;
   margin-right: 5px;
   margin-bottom: 5px;
+}
+.Authorization h1{
+  font-size: 36px;
+}
+.input-authorization{
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 100px auto 65px auto;
+}
+
+.input-authorization input{
+  margin-bottom: 75px;
+  font-size: 20px;
+  color: rgba(0, 31, 40, 0.7);
+  background-color: rgba(245, 245, 245, 1);
+  border: 1px solid rgba(0, 31, 40, 0.9);
+  padding: 16px 16px 19px 16px;
+  border-radius: 8px;
+}
+
+.button-authorization{
+  display: flex;
+  width: 434px;
+  justify-content: space-between;
+  margin: 0px auto 144px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.registry-button{
+  color: rgba(0, 31, 40, 0.9);
+  background-color: rgba(245, 245, 245, 1);
+  border: 1px solid rgba(0, 31, 40, 0.9);
+  border-radius: 8px;
+  padding: 16px 29.5px 16px 29.5px;
+  text-decoration: none;
+}
+
+.login-button{
+  color: rgba(245, 245, 245, 1);
+  background-color: rgba(30, 85, 104, 1);
+  border: none;
+  border-radius: 8px;
+  padding: 16px 65px 16px 65px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.registration h1{
+  font-size: 36px;
+  margin-bottom: 50px;
+}
+
+.container-registration{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.container-name{
+  display: flex;
+  justify-content: space-between;
+  width: 800px;
+  margin-left: 320px;
+  margin-bottom: 50px;
+}
+
+.name{
+  font-size: 20px;
+  width: 332px;
+  color: rgba(0, 31, 40, 0.7);
+  background-color: rgba(245, 245, 245, 1);
+  border: 1px solid rgba(0, 31, 40, 0.9);
+  padding: 16px 16px 19px 16px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+input.-error {
+  border: 2px solid red; 
+}
+.last-name{
+  font-size: 20px;
+  width: 332px;
+  color: rgba(0, 31, 40, 0.7);
+  background-color: rgba(245, 245, 245, 1);
+  border: 1px solid rgba(0, 31, 40, 0.9);
+  padding: 16px 16px 19px 16px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.email{
+  font-size: 20px;
+  width: 768px;
+  color: rgba(0, 31, 40, 0.7);
+  background-color: rgba(245, 245, 245, 1);
+  border: 1px solid rgba(0, 31, 40, 0.9);
+  padding: 16px 16px 19px 16px;
+  border-radius: 8px;
+  margin-left: 320px;
+  margin-bottom: 5px;
+}
+
+.container-password{
+  display: flex;
+  justify-content: space-between;
+  width: 800px;
+  margin-left: 320px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.password{
+  font-size: 20px;
+  width: 332px;
+  color: rgba(0, 31, 40, 0.7);
+  background-color: rgba(245, 245, 245, 1);
+  border: 1px solid rgba(0, 31, 40, 0.9);
+  padding: 16px 16px 19px 16px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.repeat-password{
+  font-size: 20px;
+  width: 332px;
+  color: rgba(0, 31, 40, 0.7);
+  background-color: rgba(245, 245, 245, 1);
+  border: 1px solid rgba(0, 31, 40, 0.9);
+  padding: 16px 16px 19px 16px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.radio-buttons{
+  display: flex;
+  margin-left: 408px;
+  width: 625px;
+  justify-content: space-between;
+}
+
+.checkedUser{
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  color: rgba(0, 31, 40, 0.7);
+  background-color: rgba(245, 245, 245, 1);
+  border: 1px solid rgba(0, 31, 40, 0.9);
+  padding: 17px 30px 18px 30px;
+}
+
+.checkedUser input{
+  margin-right: 10px;
+}
+
+.checkedUser input{
+  margin-right: 10px;
+}
+
+.registration-button{
+  margin-left: 578px;
+  margin-top: 50px;
+  padding: 16px 31px 19px 31px;
+}
+
+.registry{
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(245, 245, 245, 1);
+  background-color: rgba(30, 85, 104, 1);
+  border: none;
+  border-radius: 8px;
+  padding: 16px 31px 19px 31px;
+  cursor: pointer;
+}
+.error-message{
+  color: rgba(235, 87, 87, 1);
+  font-size: 16px;
+  font-weight: 300;
 }
