@@ -4,6 +4,7 @@ from datetime import datetime
 
 from flask import Flask, request, jsonify
 from flask_bcrypt import Bcrypt
+
 from flask_jwt_extended import (
     JWTManager, jwt_required, get_jwt_identity, create_access_token
 )
@@ -11,6 +12,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 
 app = Flask(__name__)
+
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://example.com"]}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -54,14 +57,14 @@ with app.app_context():
 def generate_test_id():
     return ''.join(secrets.choice('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(16))
 
+admins_logins = ['admin']
+
 @app.route('/register', methods=['POST'])
 def register():
     data = request.json
     username = data.get('username')
     password = data.get('password')
     email = data.get('email')
-
-    is_admin = data.get('is_admin', False)
 
     if not username or not password:
         return jsonify({'error': 'Username and password are required'}), 400
@@ -70,7 +73,7 @@ def register():
         return jsonify({'error': 'Username already exists'}), 400
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-    user = User(username=username, password=hashed_password, email=email, is_admin=is_admin)
+    user = User(username=username, password=hashed_password, email=email, is_admin=username in admins_logins)
     db.session.add(user)
     db.session.commit()
 
