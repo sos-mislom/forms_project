@@ -1,15 +1,15 @@
 import secrets
 import uuid
-from datetime import datetime
 
 from flask import Flask, request, jsonify
 from flask_bcrypt import Bcrypt
-
+from flask_cors import CORS
 from flask_jwt_extended import (
     JWTManager, jwt_required, get_jwt_identity, create_access_token
 )
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -19,9 +19,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'supersecretkey'
 
-db = SQLAlchemy(app)
+
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
+db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -62,7 +63,11 @@ admins_logins = ['admin']
 @app.route('/register', methods=['POST'])
 def register():
     data = request.json
-    username = data.get('username')
+
+    lastName = data.get('lastName')
+    username = str(data.get('username')) + " " + str(lastName)
+    userType = data.get('userType')
+
     password = data.get('password')
     email = data.get('email')
 
@@ -71,6 +76,9 @@ def register():
 
     if User.query.filter_by(username=username).first():
         return jsonify({'error': 'Username already exists'}), 400
+
+    if User.query.filter_by(email=email).first():
+        return jsonify({'error': 'Email already taken'}), 400
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     user = User(username=username, password=hashed_password, email=email, is_admin=username in admins_logins)
@@ -87,8 +95,14 @@ def login():
     password = data.get('password')
 
     user = User.query.filter_by(username=username).first()
-    if not user or not bcrypt.check_password_hash(user.password, password):
+    if user and not bcrypt.check_password_hash(user.password, password):
         return jsonify({'error': 'Invalid username or password'}), 401
+
+    if not user:
+        user = User.query.filter_by(email=username).first()
+
+        if not user or not bcrypt.check_password_hash(user.password, password):
+            return jsonify({'error': 'Invalid username or password'}), 401
 
     access_token = create_access_token(identity={'id': user.id, 'is_admin': user.is_admin})
     return jsonify({'access_token': access_token}), 200
