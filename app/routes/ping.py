@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify
 from sqlalchemy import text
 from app import db
 
-ping_bh = Blueprint('ping', __name__)
+ping_bh = Blueprint('ping', __name__, url_prefix='/api')
 
 
 @ping_bh.route('/ping', methods=['GET'])
