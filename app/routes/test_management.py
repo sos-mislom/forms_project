@@ -32,10 +32,9 @@ def create_test():
         title=title,
         description=description,
         unique_link=unique_link,
-        is_published=True,
         creator_id=current_user['id']
     )
-    
+
     db.session.add(test)
 
     for question_data in questions:
@@ -74,7 +73,8 @@ def publish_test(unique_link):
     if test.creator_id != current_user['id']:
         return jsonify({'error': 'Вы можете опубликовать только свой тест'}), 403
 
-    test.is_published = True
+    test.is_published = not test.is_published
+    
     db.session.commit()
     return jsonify({'message': 'Тест успешно опубликован'}), 200
 
