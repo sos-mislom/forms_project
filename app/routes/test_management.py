@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models import Test, Question, User
@@ -7,8 +9,10 @@ import secrets
 
 test_mgmt_bp = Blueprint('test_mgmt', __name__, url_prefix='/api')
 
+
 def generate_test_id():
     return ''.join(secrets.choice('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for _ in range(16))
+
 
 @test_mgmt_bp.route('/tests', methods=['POST'])
 @jwt_required()
@@ -39,17 +43,17 @@ def create_test():
 
     for question_data in questions:
         question = Question(
-            id=question_data.get('id'),
+            id=question_data.get('id', str(uuid.uuid4())),
             test_id=test_id,
             type=question_data.get('type'),
             textField=question_data.get('textField'),
             fieldTitle=question_data.get('fieldTitle'),
             descriptionField=question_data.get('descriptionField'),
             options=jsonify(question_data.get('options', [])).get_data(as_text=True),
-            ratingFrom=question_data.get('ratingFrom'),
-            ratingTo=question_data.get('ratingTo'),
             url=question_data.get('url'),
-            textQuestion=question_data.get('textQuestion')
+            textQuestion=question_data.get('textQuestion'),
+            score=question_data.get('score', 1),
+            correct_answers=jsonify(question_data.get('correctAnswers', [])).get_data(as_text=True)
         )
         db.session.add(question)
 
@@ -58,6 +62,7 @@ def create_test():
     return jsonify({'message': 'Тест создан',
                     'link': f"http://92.118.115.96:8000/tests/{unique_link}",
                     'id': test_id}), 201
+
 
 @test_mgmt_bp.route('/tests/<unique_link>/publish', methods=['POST'])
 @jwt_required()
@@ -74,9 +79,10 @@ def publish_test(unique_link):
         return jsonify({'error': 'Вы можете опубликовать только свой тест'}), 403
 
     test.is_published = not test.is_published
-    
+
     db.session.commit()
-    return jsonify({'message': 'Тест успешно опубликован'}), 200
+    return jsonify({'message': 'Тест успешно опубликован' if test.is_published else 'Тест успешно скрыт',
+                    'is_published': test.is_published}), 200
 
 
 @test_mgmt_bp.route('/tests/<unique_link>', methods=['PUT'])
@@ -110,10 +116,11 @@ def update_test(unique_link):
             question.fieldTitle = question_data.get('fieldTitle', question.fieldTitle)
             question.descriptionField = question_data.get('descriptionField', question.descriptionField)
             question.options = jsonify(question_data.get('options', [])).get_data(as_text=True)
-            question.ratingFrom = question_data.get('ratingFrom', question.ratingFrom)
-            question.ratingTo = question_data.get('ratingTo', question.ratingTo)
             question.url = question_data.get('url', question.url)
             question.textQuestion = question_data.get('textQuestion', question.textQuestion)
+
+            question.score = question_data.get('score', question.score)
+            question.correct_answers = jsonify(question_data.get('correctAnswers', [])).get_data(as_text=True)
         else:
             new_question = Question(
                 id=str(uuid.uuid4()),
@@ -123,10 +130,10 @@ def update_test(unique_link):
                 fieldTitle=question_data.get('fieldTitle'),
                 descriptionField=question_data.get('descriptionField'),
                 options=jsonify(question_data.get('options', [])).get_data(as_text=True),
-                ratingFrom=question_data.get('ratingFrom'),
-                ratingTo=question_data.get('ratingTo'),
                 url=question_data.get('url'),
-                textQuestion=question_data.get('textQuestion')
+                textQuestion=question_data.get('textQuestion'),
+                score=question_data.get('score', 1),
+                correct_answers=jsonify(question_data.get('correctAnswers', [])).get_data(as_text=True)
             )
             db.session.add(new_question)
 
@@ -141,11 +148,15 @@ def update_test(unique_link):
 
 
 @test_mgmt_bp.route('/tests/<unique_link>', methods=['GET'])
+@jwt_required()
 def get_test(unique_link):
+    current_user = get_jwt_identity()
     test = Test.query.filter_by(unique_link=unique_link).first()
 
     if not test:
         return jsonify({'error': 'Тест не найден'}), 404
+
+    is_author = test.creator_id == current_user['id']
 
     return jsonify({
         'id': test.id,
@@ -159,11 +170,11 @@ def get_test(unique_link):
                 'textField': question.textField,
                 'fieldTitle': question.fieldTitle,
                 'descriptionField': question.descriptionField,
-                'options': question.options,
-                'ratingFrom': question.ratingFrom,
-                'ratingTo': question.ratingTo,
+                'options': json.loads(question.options),
                 'url': question.url,
-                'textQuestion': question.textQuestion
+                'textQuestion': question.textQuestion,
+                **({'correctAnswers': json.loads(question.correct_answers),
+                    'score': question.score} if is_author else {})
             }
             for question in Question.query.filter_by(test_id=test.id).all()
         ],

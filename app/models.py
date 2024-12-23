@@ -28,11 +28,10 @@ class Question(db.Model):
     options = db.Column(db.Text, nullable=True)
 
     url = db.Column(db.Text, nullable=True)
-
-    ratingFrom = db.Column(db.Integer, nullable=True)
-    ratingTo = db.Column(db.Integer, nullable=True)
-
     test_id = db.Column(db.String(16), db.ForeignKey('test.id'), nullable=False)
+
+    score = db.Column(db.Integer, nullable=False, default=1)
+    correct_answers = db.Column(db.JSON, nullable=True)
 
     def to_dict(self):
         return {
@@ -42,8 +41,6 @@ class Question(db.Model):
             "textField": self.textField,
             "url": self.url,
             "textQuestion": self.textQuestion,
-            "ratingFrom": self.ratingFrom,
-            "ratingTo": self.ratingTo,
             "descriptionField": self.descriptionField,
             "options": self.options,
         }
@@ -71,3 +68,15 @@ class TestAnswer(db.Model):
     test = db.relationship('Test', backref=db.backref('answers', lazy=True))
     question = db.relationship('Question', backref=db.backref('answers', lazy=True))
     user = db.relationship('User', backref=db.backref('submitted_answers', lazy=True))
+
+
+class TotalScore(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    test_id = db.Column(db.String(16), db.ForeignKey('test.id'), nullable=False)
+    max_score = db.Column(db.Integer, nullable=False, default=0)
+    total_score = db.Column(db.Integer, nullable=False, default=0)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    user = db.relationship('User', backref=db.backref('total_scores', lazy=True))
+    test = db.relationship('Test', backref=db.backref('total_scores', lazy=True))
