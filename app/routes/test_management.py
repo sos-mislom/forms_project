@@ -43,7 +43,7 @@ def create_test():
 
     for question_data in questions:
         question = Question(
-            id=question_data.get('id', str(uuid.uuid4())),
+            id=str(uuid.uuid4()),
             test_id=test_id,
             type=question_data.get('type'),
             textField=question_data.get('textField'),
@@ -105,12 +105,14 @@ def update_test(unique_link):
     test.is_published = data.get('is_published', test.is_published)
 
     updated_questions = data.get('questions', [])
-    existing_question_ids = {q.id for q in Question.query.filter_by(test_id=test.id).all()}
+    incoming_question_ids = {q.get('id') for q in updated_questions}
+    print(incoming_question_ids)
 
-    for question_data in updated_questions:
-        question_id = question_data.get('id')
-        if question_id in existing_question_ids:
-            question = Question.query.get(question_id)
+    existing_questions = Question.query.filter_by(test_id=test.id).all()
+
+    for question in existing_questions:
+        if question.id in incoming_question_ids:
+            question_data = next(q for q in updated_questions if q['id'] == question.id)
             question.type = question_data.get('type', question.type)
             question.textField = question_data.get('textField', question.textField)
             question.fieldTitle = question_data.get('fieldTitle', question.fieldTitle)
@@ -118,10 +120,15 @@ def update_test(unique_link):
             question.options = jsonify(question_data.get('options', [])).get_data(as_text=True)
             question.url = question_data.get('url', question.url)
             question.textQuestion = question_data.get('textQuestion', question.textQuestion)
-
             question.score = question_data.get('score', question.score)
             question.correct_answers = jsonify(question_data.get('correctAnswers', [])).get_data(as_text=True)
-        else:
+
+    for question in existing_questions:
+        if question.id not in incoming_question_ids:
+            db.session.delete(question)
+
+    for question_data in updated_questions:
+        if not Question.query.get(question_data['id']):
             new_question = Question(
                 id=str(uuid.uuid4()),
                 test_id=test.id,
@@ -136,11 +143,6 @@ def update_test(unique_link):
                 correct_answers=jsonify(question_data.get('correctAnswers', [])).get_data(as_text=True)
             )
             db.session.add(new_question)
-
-    incoming_question_ids = {q.get('id') for q in updated_questions}
-    for question in Question.query.filter_by(test_id=test.id).all():
-        if question.id not in incoming_question_ids:
-            db.session.delete(question)
 
     db.session.commit()
 

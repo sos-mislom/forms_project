@@ -74,23 +74,62 @@ def submit_test(unique_link):
     return jsonify({'message': 'Ответы успешно отправлены', 'total_score': total_score, 'max_score': max_score})
 
 
-@test_submission_bp.route('/tests/<unique_link>/result', methods=['GET'])
+@test_submission_bp.route('/tests/<unique_link>/result', methods=['POST'])
 @jwt_required()
 def get_test_result(unique_link):
     current_user = get_jwt_identity()
+
+    data = request.get_json()
+    requires_percentage = data.get('requires_score', 0)
 
     test = Test.query.filter_by(unique_link=unique_link).first()
     if not test:
         return jsonify({'error': 'Тест не найден'}), 404
 
-    result = TotalScore.query.filter_by(user_id=current_user['id'], test_id=test.id).first()
-    if not result:
-        return jsonify({'error': 'Результат теста не найден'}), 404
+    is_author = test.creator_id == current_user['id']
 
-    return jsonify({
-        'total_score': result.total_score,
-        'test_id': result.test_id,
-        'user_id': result.user_id,
-        'max_score': result.max_score,
-        'timestamp': result.timestamp.isoformat()
-    })
+    if not is_author:
+        result = TotalScore.query.filter_by(user_id=current_user['id'], test_id=test.id).first()
+        if not result:
+            return jsonify({'error': 'Результат теста не найден'}), 404
+
+        if result.total_score >= result.max_score * (requires_percentage / 100):
+            return jsonify({
+                'total_score': result.total_score,
+                'test_id': result.test_id,
+                'user_id': result.user_id,
+                'max_score': result.max_score,
+                'timestamp': result.timestamp.isoformat()
+            })
+        else:
+            return jsonify({'error': 'Недостаточно баллов для просмотра результата'}), 403
+
+    results = TotalScore.query.filter_by(test_id=test.id).all()
+    filtered_results = [
+        {
+            'total_score': result.total_score,
+            'test_id': result.test_id,
+            'user_id': result.user_id,
+            'max_score': result.max_score,
+            'timestamp': result.timestamp.isoformat()
+        }
+        for result in results if result.total_score >= result.max_score * (requires_percentage / 100)
+    ]
+
+    return jsonify(filtered_results)
+
+
+@test_submission_bp.route('/completed-tests', methods=['GET'])
+@jwt_required()
+def get_completed_tests():
+    current_user = get_jwt_identity()
+
+    completed_tests = (Test.query.join(TestAnswer, Test.id == TestAnswer.test_id)
+                       .filter(TestAnswer.user_id == current_user['id']).distinct().all())
+
+    return jsonify([{
+        'test_id': test.id,
+        'title': test.title,
+        'description': test.description,
+        'unique_link': test.unique_link
+    } for test in completed_tests])
