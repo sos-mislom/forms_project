@@ -1,0 +1,16 @@
+.passed-tests h1{
+    font-size: 40px;
+    font-weight: 400;
+    color: rgba(0, 31, 40, 0.9);
+    margin: 45px 515px 70px 516px;
+  }
+.passed-test{
+  width: 300px;
+  height: 200px;
+  background-color: rgba(217, 217, 217, 1);
+}
+.passed-tests-block{
+    position: relative;
+    margin: 0px 35px 51px 0px;
+    padding: 0px;
+}

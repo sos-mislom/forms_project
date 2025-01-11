@@ -1,0 +1,139 @@
+.registration h1{
+    font-size: 36px;
+    font-weight: 400;
+    color: rgba(0, 31, 40, 0.9);
+    margin: 48px 597px 50px 596px;
+  }
+  
+  .container-registration{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+  }
+  
+  .container-name{
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    margin-left: 320px;
+    margin-bottom: 50px;
+  }
+  
+  .name{
+    font-size: 20px;
+    width: 332px;
+    color: rgba(0, 31, 40, 0.7);
+    background-color: rgba(245, 245, 245, 1);
+    border: 1px solid rgba(0, 31, 40, 0.9);
+    padding: 16px 16px 19px 16px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+  }
+  input.-error {
+    border: 2px solid red; 
+  }
+  .last-name{
+    font-size: 20px;
+    width: 332px;
+    color: rgba(0, 31, 40, 0.7);
+    background-color: rgba(245, 245, 245, 1);
+    border: 1px solid rgba(0, 31, 40, 0.9);
+    padding: 16px 16px 19px 16px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+  }
+  
+  .email{
+    font-size: 20px;
+    width: 768px;
+    color: rgba(0, 31, 40, 0.7);
+    background-color: rgba(245, 245, 245, 1);
+    border: 1px solid rgba(0, 31, 40, 0.9);
+    padding: 16px 16px 19px 16px;
+    border-radius: 8px;
+    margin-left: 320px;
+    margin-bottom: 5px;
+  }
+  
+  .container-password{
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    margin-left: 320px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+  }
+  
+  .password{
+    font-size: 20px;
+    width: 332px;
+    color: rgba(0, 31, 40, 0.7);
+    background-color: rgba(245, 245, 245, 1);
+    border: 1px solid rgba(0, 31, 40, 0.9);
+    padding: 16px 16px 19px 16px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+  }
+  
+  .repeat-password{
+    font-size: 20px;
+    width: 332px;
+    color: rgba(0, 31, 40, 0.7);
+    background-color: rgba(245, 245, 245, 1);
+    border: 1px solid rgba(0, 31, 40, 0.9);
+    padding: 16px 16px 19px 16px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+  }
+  
+  .radio-buttons{
+    display: flex;
+    margin-left: 408px;
+    width: 625px;
+    justify-content: space-between;
+  }
+  
+  .checkedUser{
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    color: rgba(0, 31, 40, 0.7);
+    background-color: rgba(245, 245, 245, 1);
+    border: 1px solid rgba(0, 31, 40, 0.9);
+    padding: 17px 30px 18px 30px;
+  }
+  
+  .checkedUser input{
+    margin-right: 10px;
+  }
+  
+  .registration-button{
+    margin-left: 578px;
+    margin-top: 50px;
+    padding: 16px 31px 19px 31px;
+  }
+  
+  .registry{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(245, 245, 245, 1);
+    background-color: rgba(30, 85, 104, 1);
+    border: none;
+    border-radius: 8px;
+    padding: 16px 31px 19px 31px;
+    cursor: pointer;
+  }
+  .error-message{
+    color: rgba(235, 87, 87, 1);
+    font-size: 16px;
+    font-weight: 300;
+  }
+  .server-error{
+    color: rgba(235, 87, 87, 1);
+    margin-bottom: 20px;
+    font-size: 20px;
+    margin-left: 610px;
+    padding: 0px;
+  }

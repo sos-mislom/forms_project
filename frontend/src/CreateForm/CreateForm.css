@@ -1,0 +1,26 @@
+.forms{
+    display: flex;
+    justify-content: space-between;
+    width: 1050px;
+    height: 234px;
+    margin: 0px 195px 0px 195px;
+    list-style: none;
+    padding: 0px;
+  }
+  .forms a{
+    text-decoration: none;
+  }
+  
+  .form-rectangle{
+    width: 300px;
+    height: 200px;
+  }
+  .form-text{
+    text-align: center;
+    margin-top: 8px;
+  }
+  .form-text a{
+    color: rgba(0, 31, 40, 0.9);
+    font-size: 20px;
+    font-weight: 400;
+  }

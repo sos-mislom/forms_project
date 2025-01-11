@@ -1,0 +1,28 @@
+.answers{
+    display: block;
+    width: 1040px;
+    background-color: rgb(245, 245, 245);
+    margin: 0px auto 45px auto;
+    min-height: 599px;
+}
+
+.answers-table {
+    width: 990px;
+    border-collapse: collapse; 
+    margin: 0px 25px auto 25px;
+    color: rgba(0, 31, 40, 0.9);
+    font-size: 20px;
+}
+
+.answers-table th, .answers-table td {
+    border-bottom: 1px solid rgba(143, 170, 194, 0.4);
+}
+
+.answers-table tr {
+    border-bottom: 1px solid rgba(143, 170, 194, 0.4); 
+}
+
+.answers-table tr:last-child {
+    border-bottom: none; 
+}
+

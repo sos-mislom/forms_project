@@ -1,0 +1,11 @@
+.line-and-add{
+    margin: 0px;
+    display: flex;
+    height: 100%;
+  }
+  
+  .line{
+    border-left: 1px solid;
+    color: rgba(0, 31, 40, 0.9);
+    height: 380px;
+  }

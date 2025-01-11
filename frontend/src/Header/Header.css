@@ -1,0 +1,71 @@
+/*хедер*/
+header{
+    background-color: rgba(143, 170, 194, 0.2);
+    width: 1440px;
+    height: 150px;
+    padding: 0px;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  header a{
+    text-decoration: none;
+  }
+  .logotip{
+    margin: 43px auto 44px 100px;
+    font-size: 48px;
+    font-weight: 700;
+    color:rgba(0, 31, 40, 0.9)
+  }
+  .navigation-menu{
+    display: flex;
+    padding: 0px;
+  }
+  .navigation-main{
+    font-size: 36px;
+    font-weight: 400;
+    color:rgba(0, 31, 40, 0.9);
+    margin: 52px 65px 53px 300px;
+  }
+  .navigation-tests{
+    font-size: 36px;
+    font-weight: 400;
+    color:rgba(0, 31, 40, 0.9);
+    margin: 52px 65px 53px 202px;
+  }
+  .navigation-myForms{
+    font-size: 36px;
+    font-weight: 400;
+    color:rgba(0, 31, 40, 0.9);
+    margin: 52px 0px 53px 0px;
+  }
+  .navigation-passed-tests{
+    font-size: 36px;
+    font-weight: 400;
+    color:rgba(0, 31, 40, 0.9);
+    margin: 52px 0px 53px 0px;
+  }
+  .navigation-login{
+    background-color: rgba(30, 85, 104, 1);
+    color: rgba(245, 245, 245, 1);
+    padding: 7.5px 39px;
+    font-size: 36px;
+    font-weight: 400;
+    border-radius: 8px;
+    align-self: center;
+    margin: auto 60px auto 65px;
+    border: none;
+    cursor: pointer;
+  }
+  .navigation-login button{
+    font-size: 36px;
+    font-weight: 400;
+    font-family: "Merriweather", serif;
+  }
+  .create-form h1{
+    font-size: 40px;
+    font-weight: 400;
+    color: rgba(0, 31, 40, 0.9);
+    margin: 53px auto 80px auto;
+    text-align: center;
+  }

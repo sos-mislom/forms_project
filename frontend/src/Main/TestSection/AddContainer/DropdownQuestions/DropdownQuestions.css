@@ -1,0 +1,50 @@
+.dropdown-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(143, 170, 194, 0.2);
+    border: 1px solid rgba(71, 88, 102, 1);
+  }
+  
+  .dropdown-option {
+    padding: 6px 10px;
+    padding-left: 42px;
+    cursor: pointer;
+  }
+  
+  .dropdown-option:not(:last-child) {
+    border-bottom: 1px solid rgba(71, 88, 102, 1);
+  }
+  
+  .dropdown-option:hover {
+    background-color: rgba(71, 88, 102, 0.2); 
+  }
+  .dropdown-questions {
+    position: relative;
+    max-width: 262px;
+  }
+  
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    background-color: rgba(143, 170, 194, 0.2);
+    border: 1px solid rgba(71, 88, 102, 1);
+    padding: 0px;
+    cursor: pointer;
+  }
+  
+  .plus-symbol {
+    margin: 5px 10px 5px 5px;
+  }
+  
+  .add-question-text {
+    margin: 3px 10px 2px 0px;
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(0, 31, 40, 0.9);
+  }
+  
+  .arrow-down {
+    margin: 9px 0px 2px 0px;
+  }

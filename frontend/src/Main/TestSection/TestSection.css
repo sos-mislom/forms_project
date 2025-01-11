@@ -1,0 +1,47 @@
+.test{
+    display: block;
+    background-color: rgba(245, 245, 245, 1);
+    width: 1040px;
+    margin: 0px auto;
+    margin-top: 15px;
+    margin-bottom: 45px;  
+    padding: 0px;
+}
+  
+.test-block{
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 17px 37px 28px;
+    padding-top: 31px;
+}
+
+.publiced{
+    padding: 9px 22px 8px 23px;
+    border: none;
+    text-align: center;
+    background-color: rgba(71, 88, 102, 1);
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    color:rgba(245, 245, 245, 1);
+    cursor: pointer;
+}
+
+.saved{
+    padding: 9px 22px 8px 23px;
+    border: none;
+    text-align: center;
+    background-color: rgba(71, 88, 102, 1);
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    color:rgba(245, 245, 245, 1);
+    cursor: pointer;
+}
+
+.label-threshold{
+    margin-right: 35px;
+    font-size: 18px;
+    color: rgba(0, 31, 40, 0.9);
+    font-weight: 600;
+}

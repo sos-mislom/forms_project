@@ -1,0 +1,67 @@
+.modal-overlay-public {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-public {
+    background-color: rgba(245, 245, 245, 1);
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-public h2{
+    align-self: center;
+    color: rgba(0, 31, 40, 0.9);
+    margin-top: 36px;
+    margin-bottom: 70px;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  
+  .modal-public p{
+    font-size: 24px;
+    font-weight: 300;
+    margin-left: 64px;
+    margin-bottom: 19px;
+  }
+  
+  .link-container {
+    display: flex;
+  }
+  
+  .link{
+    background-color: rgba(143, 170, 194, 0.2);
+    padding: 12px 11px 10px 10px;
+    border: 1px solid rgba(0, 31, 40, 0.9);
+    border-radius: 20px;
+    width: auto;
+    margin: 0px 36px 60px 54px;
+    font-size: 20px;
+    font-weight: 300;
+  }
+  
+  .link-container button{
+    align-self: flex-start;
+    background-color: transparent;
+    border: none;
+    margin-top: 9px;
+    cursor: pointer;
+  }
+  
+  .close-form{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(0, 31, 40, 0.6);
+    margin-bottom: 39px;
+  }

@@ -1,0 +1,44 @@
+.add-question{
+    margin: 0px;
+    padding: 0px;
+  }
+  .add-question h2{
+    margin: 0px 8px 17px 9px;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(0, 31, 40, 0.9);
+  }
+  .add-question ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+    padding: 0px;
+  }
+  .add-question li{
+    list-style: none;
+  }
+  .answers button { 
+    font-size: 20px; 
+    font-family:'Times New Roman', Times, serif ;
+    font-weight: 400; 
+    text-decoration: none; 
+    color: rgba(0, 31, 40, 0.9); 
+    background-color: transparent;
+    border: none;
+    cursor: pointer; 
+    margin: 0px;
+    padding: 0px;
+  }
+  .add-field button{
+    font-size: 20px; 
+    font-family:'Times New Roman', Times, serif ;
+    font-weight: 400; 
+    text-decoration: none; 
+    color: rgba(0, 31, 40, 0.9); 
+    background-color: transparent;
+    border: none;
+    cursor: pointer; 
+    margin: 0px;
+    padding: 0px;
+  }  

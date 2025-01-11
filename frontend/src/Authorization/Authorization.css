@@ -1,0 +1,60 @@
+.Authorization h1{
+    font-size: 36px;
+    font-weight: 400;
+    color: rgba(0, 31, 40, 0.9);
+    margin: 48px 591px 100px 592px;
+  }
+  .input-authorization{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 0px 470px 65px 470px;
+  }
+  
+  .input-authorization input{
+    margin-bottom: 75px;
+    font-size: 20px;
+    color: rgba(0, 31, 40, 0.7);
+    background-color: rgba(245, 245, 245, 1);
+    border: 1px solid rgba(0, 31, 40, 0.9);
+    padding: 16px 16px 19px 16px;
+    border-radius: 8px;
+  }
+  
+  .button-authorization{
+    display: flex;
+    width: 434px;
+    justify-content: space-between;
+    margin: 0px 503px 144px 503px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  
+  .registry-button{
+    color: rgba(0, 31, 40, 0.9);
+    background-color: rgba(245, 245, 245, 1);
+    border: 1px solid rgba(0, 31, 40, 0.9);
+    border-radius: 8px;
+    padding: 16px 29.5px 16px 29.5px;
+    text-decoration: none;
+  }
+  
+  .login-button{
+    color: rgba(245, 245, 245, 1);
+    background-color: rgba(30, 85, 104, 1);
+    border: none;
+    border-radius: 8px;
+    padding: 16px 65px 16px 65px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  
+  .server-error-authorization{
+    color: rgba(235, 87, 87, 1);
+    font-size: 20px;
+    margin-left: 570px;
+    margin-bottom: 20px;
+    padding: 0px;
+  }

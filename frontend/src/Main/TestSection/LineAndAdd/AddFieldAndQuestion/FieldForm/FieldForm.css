@@ -1,0 +1,25 @@
+.add-field{
+    margin: 0px 27px 55px 0px;
+}
+.add-field-title{
+    margin: 0px 0px 18px 22px;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(0, 31, 40, 0.9);
+}
+.add-field ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+    padding:0px;
+  }
+  .add-field li{
+    list-style: none;
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .add-field a{
+    text-decoration: none;
+    color:rgba(0, 31, 40, 0.9);
+  }
